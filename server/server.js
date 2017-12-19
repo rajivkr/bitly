@@ -7,10 +7,6 @@ const moment = require('moment');
 const {mongoose, autoInc} = require('./db/mongose');
 const config = require('./config/config');
 
-var UserSchema = mongoose.Schema({
-    name: String
-});
-
 var {Url} = require('./models/url');
 var app = express();
 
