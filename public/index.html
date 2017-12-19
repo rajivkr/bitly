@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <title>Url Shortener</title>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controller.js"></script>
+    <script src="scripts/service.js"></script>
+</head>
+<body class="container-fluid full jumbotron">
+<h1 class="display-4 text-center"> Shrink your Urls here!</h1>
+<div class="container" ng-app="urlApp" ng-controller="homeController">
+    <form ng-submit="urlSubmit()">
+        <div class="form-group">
+            <label for="exampleUrl">Url to be Shrunk:</label>
+            <input type="text" ng-model="url.input_url" class="form-control" required id="exampleUrl"
+                   placeholder="Enter URL to shorten">
+        </div>
+        <div class="form-group">
+            <label for="urlValidity">Validity for the url:</label>
+            <input type="text" ng-model="url.validity" required class="form-control" id="urlValidity"
+                   placeholder="Number of days, this is valid">
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="container">
+            <h4 class="text-primary">Shortened Url is</h4>
+            <a class="text-" ng-href="{{shortened_url}}"> {{shortened_url}} </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

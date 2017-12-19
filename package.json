@@ -1,0 +1,30 @@
+{
+  "name": "bitly",
+  "version": "1.0.0",
+  "description": "Sample Url Shortnet",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "lite-server",
+    "dev-ser": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rajiv K.R.",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.28.1",
+    "express": "^4.16.2",
+    "moment": "^2.19.3",
+    "mongodb": "^3.0.0-rc0",
+    "mongoose": "^4.13.6",
+    "mongoose-auto-increment": "^5.0.1",
+    "path": "^0.12.7"
+  }
+}
