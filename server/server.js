@@ -3,13 +3,19 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const path = require('path');
 const moment = require('moment');
-const {mongoose, autoInc} = require('./db/mongose');
+const {
+    mongoose,
+    autoInc
+} = require('./db/mongose');
 const config = require('./config/config');
 
-var {Url} = require('./models/url');
+var {
+    Url
+} = require('./models/url');
 var app = express();
 
 app.use(bodyParser.json());
+console.log(path.join('public'));
 app.use(express.static(path.join('public')));
 
 app.get('/', (req, res) => {
@@ -43,7 +49,10 @@ app.post('/url', (req, res) => {
     let shortUrlObj = {};
     shortUrlObj.frontUrl = process.env.FRONT_URL;
 
-    Url.find({input_url: req.body.input_url, validity: req.body.validity,}).then((urls) => {
+    Url.find({
+        input_url: req.body.input_url,
+        validity: req.body.validity,
+    }).then((urls) => {
         if (urls) {
             for (let i = 0, len = urls.length; i < len; i++) {
                 let foundUrl = urls[i];
@@ -67,7 +76,9 @@ app.post('/url', (req, res) => {
 
 app.get('/urls', (req, res) => {
     Url.find().then((urls) => {
-        res.send({urls});
+        res.send({
+            urls
+        });
     }, (e) => {
         res.status(400).send(e);
     });
@@ -77,10 +88,14 @@ app.get('/:id', (req, res) => {
     var shortUrl = req.params.id;
 
     if (!shortUrl) {
-        res.status(500).json({error: "Short Url parameter not found"});
+        res.status(500).json({
+            error: "Short Url parameter not found"
+        });
     }
 
-    Url.find({shortUrl: shortUrl}).then((urls) => {
+    Url.find({
+        shortUrl: shortUrl
+    }).then((urls) => {
         var url = urls[0];
         if (!url) {
             return res.status(404).send();
@@ -97,4 +112,6 @@ app.get('/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Started up at port ${port}`);
 });
-module.exports = {app};
+module.exports = {
+    app
+};
