@@ -13,12 +13,12 @@ gulp.task('nodemon', function (cb) {
     var called = false;
     return nodemon({
 
-            // nodemon our expressjs server
-            script: 'server/server.js',
+        // nodemon our expressjs server
+        script: 'server/server.js',
 
-            // watch core server file(s) that require server restart on change
-            watch: ['*.js']
-        })
+        // watch core server file(s) that require server restart on change
+        watch: ['*.js']
+    })
         .on('start', function onStart() {
             // ensure start only got called once
             if (!called) {
@@ -46,7 +46,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 
         // informs browser-sync to use the following port for the proxied app
         // notice that the default port is 3000, which would clash with our expressjs
-        port: 3000,
+        port: 4000,
     });
 });
 
@@ -59,9 +59,7 @@ gulp.task('js', function () {
 
 gulp.task('css', function () {
     return gulp.src(CSS_PATH)
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+        .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('bs-reload', function () {

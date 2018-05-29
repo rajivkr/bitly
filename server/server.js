@@ -15,29 +15,7 @@ var {
 var app = express();
 
 app.use(bodyParser.json());
-console.log(path.join('public'));
 app.use(express.static(path.join('public')));
-
-app.get('/', (req, res) => {
-    "use strict";
-    const fileName = 'index.html';
-
-    const options = {
-        root: path.join('public'),
-        headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-        }
-    };
-
-    res.sendFile(fileName, options, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Sent:', fileName);
-        }
-    });
-});
 
 app.post('/url', (req, res) => {
     var url = new Url({
@@ -45,20 +23,21 @@ app.post('/url', (req, res) => {
         validity: req.body.validity,
         dateAdded: moment()
     });
+    let urlFound = false;
 
     let shortUrlObj = {};
     shortUrlObj.frontUrl = process.env.FRONT_URL;
 
     Url.find({
         input_url: req.body.input_url,
-        validity: req.body.validity,
+        validity: req.body.validity
     }).then((urls) => {
         if (urls) {
             for (let i = 0, len = urls.length; i < len; i++) {
                 let foundUrl = urls[i];
-                if (moment().diff(foundUrl.dateAdded, 'days') < foundUrl.validity) {
+                if (moment().diff(foundUrl.dateAdded, 'days') < 1 && foundUrl.validity.toString() === req.body.validity.toString()) {
                     shortUrlObj.url = foundUrl;
-                    return res.send(shortUrlObj);
+                    return res.status(200).send(shortUrlObj);
                 }
             }
         }
@@ -68,7 +47,6 @@ app.post('/url', (req, res) => {
         }, (e) => {
             res.status(400).send(e);
         });
-
     }).catch((e) => {
         res.status(400).send(e);
     });

@@ -1,4 +1,3 @@
-// CONTROLLERS
 urlApp.controller('homeController', ['$scope', 'UrlService', function ($scope, UrlService) {
 
     $scope.shortened_url = '';
